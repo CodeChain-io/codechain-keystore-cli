@@ -1,21 +1,30 @@
 {
   "name": "codechain-keystore-cli",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha.1",
   "description": "A cli tool which manages CodeChain accounts",
   "main": "build/index.js",
-  "bin": { "cckey": "build/index.js" },
+  "bin": {
+    "cckey": "build/index.js"
+  },
   "repository": "git@github.com:CodeChain-io/codechain-keystore-cli.git",
   "author": "CodeChain Team <codechain@kodebox.io>",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -p .",
-    "lint": "tslint -p . --fix",
-    "fmt": "prettier '**/*.ts' --write",
-    "fmt-verify": "prettier '**/*.ts' -l"
+    "lint": "prettier '**/*.ts' -l"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.116",
+    "@types/node": "^10.7.1",
     "prettier": "1.14.2",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "@types/commander": "^2.12.2",
+    "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#6e0d4fd84ac60c7a854a4e0bd9a8ee805d10dfe4",
+    "codechain-sdk": "^0.1.0-alpha.21.rc1",
+    "commander": "^2.17.1",
+    "lodash": "^4.17.10"
   }
 }
