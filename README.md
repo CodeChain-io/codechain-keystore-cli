@@ -11,7 +11,7 @@ A command line CodeChain key management tool
     -V, --version                     output the version number
     -t --account-type <account-type>  'platform' or 'asset'. The type of the key
     -p --passphrase <passphrase>      passphrase
-    -a --address <address>               address
+    -a --address <address>            address
     -h, --help                        output usage information
 
   Action:
