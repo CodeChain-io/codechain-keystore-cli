@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@types/commander": "^2.12.2",
-    "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#9061ad1279fc46e140757873a02bdf9e7dc4e239",
+    "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#f73dd07519db41a04dd9d34718ba4dc795607801",
     "codechain-sdk": "^0.1.0-alpha.21.rc1",
     "commander": "^2.17.1",
     "lodash": "^4.17.10"
