@@ -22,8 +22,8 @@ A command line CodeChain key management tool
   Action:
 
     getKeys     : Get all saved addresses
-    createKey   : Create new key with passphrase
-    deleteKey   : Delete the key of the given address
+    create   : Create new key with passphrase
+    delete   : Delete the key of the given address
 
 
  Examples:
@@ -32,5 +32,6 @@ A command line CodeChain key management tool
 
     cckey asset getKeys
 
-    cckey platform deleteKey --address "tcc..."
+    cckey platform delete --address "tcc..."
+
 ```

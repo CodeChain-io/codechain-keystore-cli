@@ -1,6 +1,6 @@
 export type AccountType = "platform" | "asset";
-export type Action = "getKeys" | "createKey" | "deleteKey";
-export const actions: Action[] = ["getKeys", "createKey", "deleteKey"];
+export type Action = "getKeys" | "create" | "delete";
+export const actions: Action[] = ["getKeys", "create", "delete"];
 
 export interface Option {
     passphrase?: string;

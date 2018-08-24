@@ -28,8 +28,8 @@ commander.on("--help", () => {
     console.log(`  Action:
 
     getKeys     : Get all saved addresses
-    createKey   : Create new key with passphrase
-    deleteKey   : Delete the key of the given address
+    create   : Create new key with passphrase
+    delete   : Delete the key of the given address
 
     `);
 
@@ -39,7 +39,8 @@ commander.on("--help", () => {
 
     cckey asset getKeys
 
-    cckey platform deleteKey --address "tcc..."
+    cckey platform delete --address "tcc..."
+
 `);
 });
 
@@ -65,7 +66,7 @@ async function main(accountType: AccountType, action: string, option: Option) {
                     console.log(`Current saved keys are ${_.join(keys, ",")}.`);
                 }
                 break;
-            case "createKey":
+            case "create":
                 {
                     const passphrase = getOpt(option, "passphrase");
                     const publicKey = await cckey[accountType].createKey({
@@ -80,7 +81,7 @@ async function main(accountType: AccountType, action: string, option: Option) {
                     );
                 }
                 break;
-            case "deleteKey":
+            case "delete":
                 {
                     const address = getOpt(option, "address");
                     const publicKeys = await cckey[accountType].getKeys();
