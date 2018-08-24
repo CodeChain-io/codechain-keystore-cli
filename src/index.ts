@@ -58,7 +58,7 @@ async function main(action: string, option: Option) {
                 if (keys.length === 0) {
                     console.log("There is no keys saved.");
                 } else {
-                    console.log(`Current saved keys are ${_.join(keys, ",")}.`);
+                    console.log(`Current saved keys are ${_.join(keys, ",")}`);
                 }
                 break;
             case "create":
