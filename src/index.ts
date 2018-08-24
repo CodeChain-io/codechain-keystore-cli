@@ -21,7 +21,7 @@ commander
 commander.on("--help", () => {
     console.log(`  Action:
 
-    getKeys  : Get all saved addresses
+    keys     : Get all the saved addresses
     create   : Create new key with passphrase
     delete   : Delete the key of the given address
     `);
@@ -30,7 +30,7 @@ commander.on("--help", () => {
 
     cckey create -t platform --passphrase "my password"
 
-    cckey getKeys -t asset
+    cckey keys -t asset
 
     cckey delete -t platform --address "tcc..."
 `);
@@ -53,7 +53,7 @@ async function main(action: string, option: Option) {
         }
 
         switch (action) {
-            case "getKeys":
+            case "keys":
                 let keys = await cckey[accountType].getKeys();
                 keys = _.map(keys, publicKey =>
                     getAddressFromPublic(accountType, publicKey)
