@@ -11,11 +11,13 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -p .",
-    "lint": "prettier '**/*.ts' -l"
+    "lint": "prettier '**/*.ts' -l",
+    "build-binaries": "mkdir -p binaries; pkg -t node8-linux-x86,node8-linux-x64,node8-macos-x64 --out-path binaries/ package.json"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.7.1",
+    "pkg": "^4.3.4",
     "prettier": "1.14.2",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1"
