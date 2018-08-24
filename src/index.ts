@@ -39,6 +39,7 @@ commander.on("--help", () => {
 async function main(action: string, option: Option) {
     if (!action) {
         commander.outputHelp();
+        process.exit(1);
         return;
     }
     const cckey = await CCKey.create({});
@@ -105,6 +106,7 @@ async function main(action: string, option: Option) {
         }
     } catch (err) {
         console.log(err.toString());
+        process.exit(1);
     }
 }
 
