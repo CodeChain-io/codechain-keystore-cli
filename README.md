@@ -23,10 +23,10 @@ A command line CodeChain key management tool
 
  Examples:
 
-    cckey -t platform create --passphrase "my password"
+    cckey create -t platform --passphrase "my password"
 
-    cckey -t asset getKeys
+    cckey getKeys -t asset
 
-    cckey -t platform delete --address "tcc..."
+    cckey delete -t platform --address "tcc..."
 
 ```
