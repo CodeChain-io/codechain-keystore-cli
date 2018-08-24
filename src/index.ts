@@ -15,7 +15,7 @@ commander
     // FIXME: get passphrase interactively
     .option("-t --account-type <account-type>", "'platform' or 'asset'. The type of the key")
     .option("-p --passphrase <passphrase>", "passphrase")
-    .option("--address <address>", "address")
+    .option("-a --address <address>", "address")
     .action(main);
 
 commander.on("--help", () => {
