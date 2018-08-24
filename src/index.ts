@@ -11,20 +11,14 @@ import { Option, AccountType, actions } from "./types";
 
 commander
     .version("0.1.0-alpha.1")
-    .arguments("[accountType] [action]")
+    .arguments("[action]")
     // FIXME: get passphrase interactively
+    .option("-t --account-type <account-type>", "'platform' or 'asset'. The type of the key")
     .option("-p --passphrase <passphrase>", "passphrase")
     .option("--address <address>", "address")
     .action(main);
 
 commander.on("--help", () => {
-    console.log(`  Account Types:
-
-    platform  : Manage CodeChain's platform account
-    asset     : Manage CodeChain's asset acccount
-
-    `);
-
     console.log(`  Action:
 
     getKeys     : Get all saved addresses
@@ -35,18 +29,19 @@ commander.on("--help", () => {
 
     console.log(` Examples:
 
-    cckey platform create --passphrase "my password"
+    cckey -t platform create --passphrase "my password"
 
-    cckey asset getKeys
+    cckey -t asset getKeys
 
-    cckey platform delete --address "tcc..."
+    cckey -t platform delete --address "tcc..."
 
 `);
 });
 
-async function main(accountType: AccountType, action: string, option: Option) {
+async function main(action: string, option: Option) {
     const cckey = await CCKey.create({});
     try {
+        const accountType = getOpt(option, "account-type") as AccountType;
         if (!_.includes(["platform", "asset"], accountType)) {
             throw new CLIError(CLIErrorType.InvalidAccountType);
         }

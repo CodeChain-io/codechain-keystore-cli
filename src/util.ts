@@ -48,8 +48,9 @@ export function findPublicKey(
 }
 
 export function getOpt(option: Option, key: keyof Option): string {
-    if (!option[key]) {
+    const javascriptKey = _.camelCase(key);
+    if (!option[javascriptKey]) {
         throw new CLIError(CLIErrorType.OptionRequired, { optionName: key });
     }
-    return option[key] as string;
+    return option[javascriptKey] as string;
 }

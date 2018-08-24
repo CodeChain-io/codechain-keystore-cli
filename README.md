@@ -8,16 +8,11 @@ A command line CodeChain key management tool
 
   Options:
 
-    -V, --version                 output the version number
-    -p --passphrase <passphrase>  passphrase
-    --address <address>           address
-    -h, --help                    output usage information
-
-  Account Types:
-
-    platform  : Manage CodeChain's platform account
-    asset     : Manage CodeChain's asset acccount
-
+    -V, --version                     output the version number
+    -t --account-type <account-type>  'platform' or 'asset'. The type of the key
+    -p --passphrase <passphrase>      passphrase
+    --address <address>               address
+    -h, --help                        output usage information
 
   Action:
 
@@ -28,10 +23,10 @@ A command line CodeChain key management tool
 
  Examples:
 
-    cckey platform create --passphrase "my password"
+    cckey -t platform create --passphrase "my password"
 
-    cckey asset getKeys
+    cckey -t asset getKeys
 
-    cckey platform delete --address "tcc..."
+    cckey -t platform delete --address "tcc..."
 
 ```
