@@ -37,6 +37,10 @@ commander.on("--help", () => {
 });
 
 async function main(action: string, option: Option) {
+    if (!action) {
+        commander.outputHelp();
+        return;
+    }
     const cckey = await CCKey.create({});
     try {
         const accountType = getOpt(option, "account-type") as AccountType;
