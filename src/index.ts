@@ -59,9 +59,9 @@ async function main(action: string, option: Option) {
                     getAddressFromPublic(accountType, publicKey)
                 );
                 if (keys.length === 0) {
-                    console.log("There is no keys saved.");
+                    console.log("");
                 } else {
-                    console.log(`Current saved keys are ${_.join(keys, ",")}`);
+                    console.log(_.join(keys, "\n"));
                 }
                 break;
             case "create":
@@ -70,12 +70,11 @@ async function main(action: string, option: Option) {
                     const publicKey = await cckey[accountType].createKey({
                         passphrase
                     });
-                    console.log("Account created!");
                     console.log(
-                        `Address is ${getAddressFromPublic(
+                        getAddressFromPublic(
                             accountType,
                             publicKey
-                        )}`
+                        )
                     );
                 }
                 break;
@@ -91,11 +90,10 @@ async function main(action: string, option: Option) {
                     const result = await cckey[accountType].deleteKey({
                         publicKey
                     });
-
-                    if (result) {
-                        console.log("Account removed");
-                    } else {
-                        console.log("Account not removed");
+                    if (!result) {
+                        throw new CLIError(CLIErrorType.Unknown, {
+                            message: "Delete failed"
+                        });
                     }
                 }
                 break;
