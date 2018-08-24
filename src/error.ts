@@ -18,9 +18,9 @@ export function getErrorMessage(type: CLIErrorType, args: any) {
     args = args || {};
     switch (type) {
         case CLIErrorType.InvalidAccountType:
-            return "First argument should be 'platform' or 'asset'";
+            return "Account-type should be 'platform' or 'asset'";
         case CLIErrorType.InvalidAction:
-            return `Second argument should one of the ${JSON.stringify(
+            return `Action should one of the ${JSON.stringify(
                 actions
             )}`;
         case CLIErrorType.OptionRequired:
