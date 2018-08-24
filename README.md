@@ -4,7 +4,7 @@ codechain-keystore-cli [![Build Status](https://travis-ci.org/CodeChain-io/codec
 A command line CodeChain key management tool
 
 ```sh
-  Usage: cckey [options] [accountType] [action]
+  Usage: cckey [options] [action]
 
   Options:
 
