@@ -21,7 +21,7 @@ commander
 commander.on("--help", () => {
     console.log(`  Action:
 
-    getKeys     : Get all saved addresses
+    getKeys  : Get all saved addresses
     create   : Create new key with passphrase
     delete   : Delete the key of the given address
 
