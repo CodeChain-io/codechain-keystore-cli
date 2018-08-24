@@ -27,7 +27,7 @@ commander.on("--help", () => {
 
     `);
 
-    console.log(` Examples:
+    console.log(`  Examples:
 
     cckey create -t platform --passphrase "my password"
 

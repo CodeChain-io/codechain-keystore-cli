@@ -21,7 +21,7 @@ A command line CodeChain key management tool
     delete   : Delete the key of the given address
 
 
- Examples:
+  Examples:
 
     cckey create -t platform --passphrase "my password"
 
