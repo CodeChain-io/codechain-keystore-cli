@@ -44,12 +44,12 @@ async function main(action: string, option: Option) {
     }
     const cckey = await CCKey.create({});
     try {
+        if (!_.includes(actions, action)) {
+            throw new CLIError(CLIErrorType.InvalidAction);
+        }
         const accountType = getOpt(option, "account-type") as AccountType;
         if (!_.includes(["platform", "asset"], accountType)) {
             throw new CLIError(CLIErrorType.InvalidAccountType);
-        }
-        if (!_.includes(actions, action)) {
-            throw new CLIError(CLIErrorType.InvalidAction);
         }
 
         switch (action) {
