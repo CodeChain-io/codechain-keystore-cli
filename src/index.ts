@@ -24,7 +24,6 @@ commander.on("--help", () => {
     getKeys  : Get all saved addresses
     create   : Create new key with passphrase
     delete   : Delete the key of the given address
-
     `);
 
     console.log(`  Examples:
@@ -34,7 +33,6 @@ commander.on("--help", () => {
     cckey getKeys -t asset
 
     cckey delete -t platform --address "tcc..."
-
 `);
 });
 

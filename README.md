@@ -20,7 +20,6 @@ A command line CodeChain key management tool
     create   : Create new key with passphrase
     delete   : Delete the key of the given address
 
-
   Examples:
 
     cckey create -t platform --passphrase "my password"
