@@ -1,6 +1,6 @@
 export type AccountType = "platform" | "asset";
-export type Action = "getKeys" | "create" | "delete";
-export const actions: Action[] = ["getKeys", "create", "delete"];
+export type Action = "list" | "create" | "delete";
+export const actions: Action[] = ["list", "create", "delete"];
 
 export interface Option {
     "account-type"?: string;
