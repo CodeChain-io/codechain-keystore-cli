@@ -1,4 +1,4 @@
-codechain-keystore-cli
+codechain-keystore-cli [![Build Status](https://travis-ci.org/CodeChain-io/codechain-keystore-cli.svg?branch=master)](https://travis-ci.org/CodeChain-io/codechain-keystore-cli)
 =========================
 
 A command line CodeChain key management tool
