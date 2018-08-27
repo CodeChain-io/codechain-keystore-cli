@@ -22,6 +22,7 @@
     "build"
   ],
   "devDependencies": {
+    "@types/commander": "^2.12.2",
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.7.1",
     "pkg": "^4.3.4",
@@ -30,7 +31,6 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "@types/commander": "^2.12.2",
     "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#f73dd07519db41a04dd9d34718ba4dc795607801",
     "codechain-sdk": "^0.1.0-alpha.21.rc1",
     "commander": "^2.17.1",
