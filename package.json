@@ -15,8 +15,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -p .",
-    "lint": "prettier '**/*.ts' -l",
-    "build-binaries": "mkdir -p binaries; pkg -t node8-linux-x86,node8-linux-x64,node8-macos-x64 --out-path binaries/ package.json"
+    "lint": "prettier '**/*.ts' -l"
   },
   "files": [
     "build"
