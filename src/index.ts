@@ -12,7 +12,7 @@ import { getAccountIdFromPublic, blake256 } from "codechain-sdk/lib/utils";
 import { H256 } from "codechain-sdk/lib/core/classes";
 
 commander
-    .version("0.1.0-alpha.1")
+    .version("0.1.1")
     .arguments("[action]")
     // FIXME: get passphrase interactively
     .option("-t --account-type <account-type>", "'platform' or 'asset'. The type of the key")
