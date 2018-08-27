@@ -8,6 +8,8 @@ import { CCKey } from "codechain-keystore";
 import { CLIError, CLIErrorType } from "./error";
 import { getAddressFromPublic, findPublicKey, getOpt } from "./util";
 import { Option, AccountType, actions } from "./types";
+import { getAccountIdFromPublic, blake256 } from "codechain-sdk/lib/utils";
+import { H256 } from "codechain-sdk/lib/core/classes";
 
 commander
     .version("0.1.0-alpha.1")
@@ -70,6 +72,14 @@ async function main(action: string, option: Option) {
                     const publicKey = await cckey[accountType].createKey({
                         passphrase
                     });
+                    if (accountType === "platform") {
+                        const accountId = getAccountIdFromPublic(publicKey);
+                        cckey.mapping.add({ key: accountId, value: publicKey });
+                    } if (accountType === "asset") {
+                        const hash = H256.ensure(blake256(publicKey)).value;
+                        cckey.mapping.add({ key: hash, value: publicKey });
+                    }
+
                     console.log(
                         getAddressFromPublic(
                             accountType,
