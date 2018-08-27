@@ -321,6 +321,14 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+codechain-keystore@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/codechain-keystore/-/codechain-keystore-0.1.0.tgz#f985df3ddebb264f1066678db82fe6cbbd68f079"
+  dependencies:
+    codechain-sdk "^0.1.0-alpha.18"
+    config "^2.0.1"
+    lowdb "^1.0.0"
+
 "codechain-keystore@git://github.com/CodeChain-io/codechain-keystore.git#a168fc7eb01d31269d6e29ab9075315ae557471b":
   version "0.0.0"
   resolved "git://github.com/CodeChain-io/codechain-keystore.git#a168fc7eb01d31269d6e29ab9075315ae557471b"
@@ -328,15 +336,6 @@ code-point-at@^1.0.0:
     codechain-sdk "^0.1.0-alpha.18"
     config "^2.0.1"
     sqlite3 "^4.0.2"
-    ts-node "^7.0.0"
-
-"codechain-keystore@git://github.com/CodeChain-io/codechain-keystore.git#f73dd07519db41a04dd9d34718ba4dc795607801":
-  version "0.0.0"
-  resolved "git://github.com/CodeChain-io/codechain-keystore.git#f73dd07519db41a04dd9d34718ba4dc795607801"
-  dependencies:
-    codechain-sdk "^0.1.0-alpha.18"
-    config "^2.0.1"
-    lowdb "^1.0.0"
     ts-node "^7.0.0"
 
 codechain-sdk@^0.1.0-alpha.18:

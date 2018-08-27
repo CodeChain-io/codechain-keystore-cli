@@ -1,6 +1,6 @@
 {
   "name": "codechain-keystore-cli",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0",
   "description": "A cli tool which manages CodeChain accounts",
   "main": "build/index.js",
   "bin": {
@@ -31,7 +31,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#f73dd07519db41a04dd9d34718ba4dc795607801",
+    "codechain-keystore": "^0.1.0",
     "codechain-sdk": "^0.1.0-alpha.21.rc1",
     "commander": "^2.17.1",
     "lodash": "^4.17.10"
