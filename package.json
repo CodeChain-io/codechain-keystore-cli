@@ -8,12 +8,19 @@
   },
   "repository": "git@github.com:CodeChain-io/codechain-keystore-cli.git",
   "author": "CodeChain Team <codechain@kodebox.io>",
+  "bugs": {
+    "url": "https://github.com/codechain-io/codechain-keystore-cli/issues"
+  },
+  "homepage": "https://github.com/CodeChain-io/codechain-keystore-cli#readme",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -p .",
     "lint": "prettier '**/*.ts' -l",
     "build-binaries": "mkdir -p binaries; pkg -t node8-linux-x86,node8-linux-x64,node8-macos-x64 --out-path binaries/ package.json"
   },
+  "files": [
+    "build"
+  ],
   "devDependencies": {
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.7.1",
