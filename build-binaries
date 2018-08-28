@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
-const { version } = require('./package.json');
+const { execSync } = require("child_process");
+const { version } = require("./package.json");
 
 execSync("rm -r binaries/");
 execSync("mkdir -p binaries");
