@@ -16,14 +16,15 @@ const files = [
     "codechain-keystore-cli-win-x86.exe"
 ];
 
+process.chdir("binaries");
 for (const file of files) {
     const distFile = getDistFile(file);
-    execSync(`mv binaries/${file} binaries/${distFile}`);
+    execSync(`mv ${file} ${distFile}`);
     const dir = removeExe(file);
-    execSync(`mkdir -p binaries/${dir}`);
-    execSync(`mv binaries/${distFile} binaries/${dir}/`);
+    execSync(`mkdir -p ${dir}`);
+    execSync(`mv ${distFile} ${dir}/`);
 
-    execSync(`zip -r binaries/${dir}-${version}.zip binaries/${dir}`)
+    execSync(`zip -r ${dir}-${version}.zip ${dir}`);
 }
 
 /**
