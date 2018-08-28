@@ -3,7 +3,12 @@
 const { execSync } = require("child_process");
 const { version } = require("./package.json");
 
-execSync("rm -r binaries/");
+try {
+    execSync("rm -r binaries/");
+} catch (err) {
+    // ignore
+}
+
 execSync("mkdir -p binaries");
 execSync("yarn pkg -t node8-linux-x86,node8-linux-x64,node8-macos-x64,node8-windows-x86,node8-windows-x64 --out-path binaries/ package.json");
 
