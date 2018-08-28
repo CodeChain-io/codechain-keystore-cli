@@ -17,10 +17,11 @@ const files = [
 ];
 
 for (const file of files) {
-    execSync(`mv binaries/${file} binaries/cckey`);
+    const distFile = getDistFile(file);
+    execSync(`mv binaries/${file} binaries/${distFile}`);
     const dir = removeExe(file);
     execSync(`mkdir -p binaries/${dir}`);
-    execSync(`mv binaries/cckey binaries/${dir}/`);
+    execSync(`mv binaries/${distFile} binaries/${dir}/`);
 
     execSync(`zip -r binaries/${dir}-${version}.zip binaries/${dir}`)
 }
@@ -33,5 +34,13 @@ function removeExe(fileName) {
         return fileName.slice(0, fileName.length - 4);
     } else {
         return fileName;
+    }
+}
+
+function getDistFile(fileName) {
+    if (fileName.indexOf("exe") !== -1) {
+        return "cckey.exe";
+    } else {
+        return "cckey";
     }
 }
