@@ -33,6 +33,8 @@
     "codechain-keystore": "^0.1.0",
     "codechain-sdk": "^0.1.0-alpha.21.rc1",
     "commander": "^2.17.1",
-    "lodash": "^4.17.10"
+    "enquirer": "^1.0.3",
+    "lodash": "^4.17.10",
+    "prompt-confirm": "^2.0.4"
   }
 }

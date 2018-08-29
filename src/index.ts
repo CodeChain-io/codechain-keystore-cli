@@ -94,14 +94,23 @@ async function main(action: string, option: Option) {
                         publicKeys,
                         address
                     );
-                    const result = await cckey[accountType].deleteKey({
-                        publicKey
-                    });
-                    if (!result) {
-                        throw new CLIError(CLIErrorType.Unknown, {
-                            message: "Delete failed"
-                        });
-                    }
+                    const Enquirer = require('enquirer');
+                    const enquirer = new Enquirer();
+                    enquirer.register("confirm", require("prompt-confirm"));
+                    enquirer.question('delete', 'Do you really want to delete the key?', { type: 'confirm' });
+                    enquirer.prompt(["delete"])
+                        .then((async (answers: { delete: boolean }) => {
+                            if (answers.delete) {
+                                const result = await cckey[accountType].deleteKey({
+                                    publicKey
+                                });
+                                if (!result) {
+                                    throw new CLIError(CLIErrorType.Unknown, {
+                                        message: "Delete failed"
+                                    });
+                                }
+                            }
+                        }));
                 }
                 break;
             default:
