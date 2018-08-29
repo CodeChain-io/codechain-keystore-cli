@@ -6,10 +6,10 @@ import * as _ from "lodash";
 import { CCKey } from "codechain-keystore";
 
 import { CLIError, CLIErrorType } from "./error";
-import { getAddressFromPublic, findPublicKey } from "./util";
 import { Option, AccountType, actions } from "./types";
-import { getAccountIdFromPublic, blake256 } from "codechain-sdk/lib/utils";
-import { H256 } from "codechain-sdk/lib/core/classes";
+import { listKeys } from "./command/list";
+import { createKey } from "./command/create";
+import { deleteKey } from "./command/delete";
 
 commander
     .version("0.1.1")
@@ -53,65 +53,15 @@ async function main(action: string, option: Option) {
 
         switch (action) {
             case "list":
-                let keys = await cckey[accountType].getKeys();
-                keys = _.map(keys, publicKey =>
-                    getAddressFromPublic(accountType, publicKey)
-                );
-                if (keys.length === 0) {
-                    console.log("");
-                } else {
-                    console.log(_.join(keys, "\n"));
-                }
+                await listKeys(cckey, accountType);
                 break;
             case "create":
-                {
-                    const passphrase = getPassphrase(option);
-                    const publicKey = await cckey[accountType].createKey({
-                        passphrase
-                    });
-                    if (accountType === "platform") {
-                        const accountId = getAccountIdFromPublic(publicKey);
-                        cckey.mapping.add({ key: accountId, value: publicKey });
-                    } if (accountType === "asset") {
-                        const hash = H256.ensure(blake256(publicKey)).value;
-                        cckey.mapping.add({ key: hash, value: publicKey });
-                    }
-
-                    console.log(
-                        getAddressFromPublic(
-                            accountType,
-                            publicKey
-                        )
-                    );
-                }
+                const passphrase = getPassphrase(option);
+                await createKey(cckey, accountType, passphrase);
                 break;
             case "delete":
-                {
-                    const address = getAddress(option);
-                    const publicKeys = await cckey[accountType].getKeys();
-                    const publicKey = findPublicKey(
-                        accountType,
-                        publicKeys,
-                        address
-                    );
-                    const Enquirer = require('enquirer');
-                    const enquirer = new Enquirer();
-                    enquirer.register("confirm", require("prompt-confirm"));
-                    enquirer.question('delete', 'Do you really want to delete the key?', { type: 'confirm' });
-                    enquirer.prompt(["delete"])
-                        .then((async (answers: { delete: boolean }) => {
-                            if (answers.delete) {
-                                const result = await cckey[accountType].deleteKey({
-                                    publicKey
-                                });
-                                if (!result) {
-                                    throw new CLIError(CLIErrorType.Unknown, {
-                                        message: "Delete failed"
-                                    });
-                                }
-                            }
-                        }));
-                }
+                const address = getAddress(option);
+                await deleteKey(cckey, accountType, address);
                 break;
             default:
                 throw new CLIError(CLIErrorType.Unknown, {
