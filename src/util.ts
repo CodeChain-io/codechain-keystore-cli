@@ -7,7 +7,7 @@ import { H256 } from "codechain-sdk/lib/core/classes";
 import _ = require("lodash");
 
 import { CLIError, CLIErrorType } from "./error";
-import { AccountType, Option } from "./types";
+import { AccountType } from "./types";
 import { networkId } from "./const";
 
 export function getAddressFromPublic(
@@ -45,12 +45,4 @@ export function findPublicKey(
     }
 
     return publicKeys[index];
-}
-
-export function getOpt(option: Option, key: keyof Option): string {
-    const javascriptKey = _.camelCase(key);
-    if (!option[javascriptKey]) {
-        throw new CLIError(CLIErrorType.OptionRequired, { optionName: key });
-    }
-    return option[javascriptKey] as string;
 }

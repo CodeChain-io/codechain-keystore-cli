@@ -6,7 +6,7 @@ import * as _ from "lodash";
 import { CCKey } from "codechain-keystore";
 
 import { CLIError, CLIErrorType } from "./error";
-import { getAddressFromPublic, findPublicKey, getOpt } from "./util";
+import { getAddressFromPublic, findPublicKey } from "./util";
 import { Option, AccountType, actions } from "./types";
 import { getAccountIdFromPublic, blake256 } from "codechain-sdk/lib/utils";
 import { H256 } from "codechain-sdk/lib/core/classes";
@@ -49,10 +49,7 @@ async function main(action: string, option: Option) {
         if (!_.includes(actions, action)) {
             throw new CLIError(CLIErrorType.InvalidAction);
         }
-        const accountType = getOpt(option, "account-type") as AccountType;
-        if (!_.includes(["platform", "asset"], accountType)) {
-            throw new CLIError(CLIErrorType.InvalidAccountType);
-        }
+        const accountType = getAccountType(option);
 
         switch (action) {
             case "list":
@@ -68,7 +65,7 @@ async function main(action: string, option: Option) {
                 break;
             case "create":
                 {
-                    const passphrase = getOpt(option, "passphrase");
+                    const passphrase = getPassphrase(option);
                     const publicKey = await cckey[accountType].createKey({
                         passphrase
                     });
@@ -90,7 +87,7 @@ async function main(action: string, option: Option) {
                 break;
             case "delete":
                 {
-                    const address = getOpt(option, "address");
+                    const address = getAddress(option);
                     const publicKeys = await cckey[accountType].getKeys();
                     const publicKey = findPublicKey(
                         accountType,
@@ -119,3 +116,31 @@ async function main(action: string, option: Option) {
 }
 
 commander.parse(process.argv);
+
+function getAccountType(option: Option): AccountType {
+    const accountType = option["accountType"];
+    if (_.isUndefined(accountType)) {
+        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "account-type" });
+    }
+    if (!_.includes(["platform", "asset"], accountType)) {
+        throw new CLIError(CLIErrorType.InvalidAccountType);
+    }
+    return accountType as AccountType;
+}
+
+function getAddress(option: Option): string {
+    const address = option["address"];
+    if (_.isUndefined(address)) {
+        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "address" });
+    }
+    // FIXME: Validate the address.
+    return address;
+}
+
+function getPassphrase(option: Option): string {
+    const passphrase = option["passphrase"];
+    if (_.isUndefined(passphrase)) {
+        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "passphrase" });
+    }
+    return passphrase;
+}
