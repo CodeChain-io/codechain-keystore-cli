@@ -1,4 +1,4 @@
-import { actions } from "./types";
+import { Action } from "./types";
 
 export enum CLIErrorType {
     InvalidAccountType,
@@ -15,6 +15,8 @@ export class CLIError extends Error {
 }
 
 function getErrorMessage(type: CLIErrorType, args: any = {}) {
+    const actions: Action[] = ["list", "create", "delete"];
+
     switch (type) {
         case CLIErrorType.InvalidAccountType:
             return "Account-type should be 'platform' or 'asset'";
