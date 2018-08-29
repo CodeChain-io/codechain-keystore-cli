@@ -44,7 +44,7 @@ async function main(action: string, option: Option) {
         process.exit(1);
         return;
     }
-    const cckey = await CCKey.create({});
+    const cckey = await CCKey.create();
     try {
         if (!_.includes(actions, action)) {
             throw new CLIError(CLIErrorType.InvalidAction);
