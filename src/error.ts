@@ -4,7 +4,7 @@ export enum CLIErrorType {
     InvalidAccountType,
     InvalidAction,
     OptionRequired,
-    CannotFindAddress,
+    NoSuchAddress,
     Unknown
 }
 
@@ -24,8 +24,8 @@ function getErrorMessage(type: CLIErrorType, args: any = {}) {
             )}`;
         case CLIErrorType.OptionRequired:
             return `Option --${args.optionName} is required`;
-        case CLIErrorType.CannotFindAddress:
-            return `Cannot find address ${args.address}`;
+        case CLIErrorType.NoSuchAddress:
+            return `${args.address} is not found`;
         case CLIErrorType.Unknown:
             return `Internal error ${args.message}`;
         default:

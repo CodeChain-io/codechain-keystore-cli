@@ -41,7 +41,7 @@ export function findPublicKey(
     );
     const index = _.indexOf(addresses, address);
     if (index === -1) {
-        throw new CLIError(CLIErrorType.CannotFindAddress, { address });
+        throw new CLIError(CLIErrorType.NoSuchAddress, { address });
     }
 
     return publicKeys[index];
