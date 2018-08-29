@@ -6,7 +6,7 @@ import * as _ from "lodash";
 import { CCKey } from "codechain-keystore";
 
 import { CLIError, CLIErrorType } from "./error";
-import { Option, AccountType, actions } from "./types";
+import { Option, AccountType } from "./types";
 import { listKeys } from "./command/list";
 import { createKey } from "./command/create";
 import { deleteKey } from "./command/delete";
@@ -46,9 +46,6 @@ async function main(action: string, option: Option) {
     }
     const cckey = await CCKey.create();
     try {
-        if (!_.includes(actions, action)) {
-            throw new CLIError(CLIErrorType.InvalidAction);
-        }
         const accountType = getAccountType(option);
 
         switch (action) {
