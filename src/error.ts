@@ -14,7 +14,7 @@ export class CLIError extends Error {
     }
 }
 
-export function getErrorMessage(type: CLIErrorType, args: any = {}) {
+function getErrorMessage(type: CLIErrorType, args: any = {}) {
     switch (type) {
         case CLIErrorType.InvalidAccountType:
             return "Account-type should be 'platform' or 'asset'";
