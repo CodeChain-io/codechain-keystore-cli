@@ -25,9 +25,7 @@ export function getAddressFromPublic(
         });
         return assetAddress.toString();
     } else {
-        throw new CLIError(CLIErrorType.Unknown, {
-            message: "invalid account type"
-        });
+        throw new CLIError(CLIErrorType.InvalidAccountType);
     }
 }
 
