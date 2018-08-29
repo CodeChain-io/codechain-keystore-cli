@@ -64,9 +64,7 @@ async function main(action: string, option: Option) {
                 await deleteKey(cckey, accountType, address);
                 break;
             default:
-                throw new CLIError(CLIErrorType.Unknown, {
-                    message: "invalid action"
-                });
+                throw new CLIError(CLIErrorType.InvalidAction);
         }
     } catch (err) {
         console.log(err.toString());
