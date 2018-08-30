@@ -15,7 +15,7 @@ commander
     .version("0.1.1")
     .arguments("[action]")
     .option(
-        "-t --account-type <account-type>",
+        "-t --account-type <accountType>",
         "'platform' or 'asset'. The type of the key"
     )
     .option("-p --passphrase <passphrase>", "passphrase")
