@@ -1,20 +1,23 @@
 #!/usr/bin/env node
 
-import * as commander from "commander";
-import * as process from "process";
-import * as _ from "lodash";
 import { CCKey } from "codechain-keystore";
+import * as commander from "commander";
+import * as _ from "lodash";
+import * as process from "process";
 
-import { CLIError, CLIErrorType } from "./error";
-import { Option, AccountType } from "./types";
-import { listKeys } from "./command/list";
 import { createKey } from "./command/create";
 import { deleteKey } from "./command/delete";
+import { listKeys } from "./command/list";
+import { CLIError, CLIErrorType } from "./error";
+import { AccountType, Option } from "./types";
 
 commander
     .version("0.1.1")
     .arguments("[action]")
-    .option("-t --account-type <account-type>", "'platform' or 'asset'. The type of the key")
+    .option(
+        "-t --account-type <account-type>",
+        "'platform' or 'asset'. The type of the key"
+    )
     .option("-p --passphrase <passphrase>", "passphrase")
     .option("-a --address <address>", "address")
     .action(main);
@@ -71,9 +74,11 @@ async function main(action: string, option: Option) {
 commander.parse(process.argv);
 
 function getAccountType(option: Option): AccountType {
-    const accountType = option["accountType"];
+    const accountType = option.accountType;
     if (_.isUndefined(accountType)) {
-        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "account-type" });
+        throw new CLIError(CLIErrorType.OptionRequired, {
+            optionName: "account-type"
+        });
     }
     if (!_.includes(["platform", "asset"], accountType)) {
         throw new CLIError(CLIErrorType.InvalidAccountType);
@@ -82,18 +87,22 @@ function getAccountType(option: Option): AccountType {
 }
 
 function getAddress(option: Option): string {
-    const address = option["address"];
+    const address = option.address;
     if (_.isUndefined(address)) {
-        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "address" });
+        throw new CLIError(CLIErrorType.OptionRequired, {
+            optionName: "address"
+        });
     }
     // FIXME: Validate the address.
     return address;
 }
 
 function getPassphrase(option: Option): string {
-    const passphrase = option["passphrase"];
+    const passphrase = option.passphrase;
     if (_.isUndefined(passphrase)) {
-        throw new CLIError(CLIErrorType.OptionRequired, { optionName: "passphrase" });
+        throw new CLIError(CLIErrorType.OptionRequired, {
+            optionName: "passphrase"
+        });
     }
     return passphrase;
 }

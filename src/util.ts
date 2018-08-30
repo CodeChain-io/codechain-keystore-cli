@@ -1,14 +1,14 @@
-import { getAccountIdFromPublic, blake256 } from "codechain-sdk/lib/utils";
-import {
-    PlatformAddress,
-    AssetTransferAddress
-} from "codechain-sdk/lib/key/classes";
 import { H256 } from "codechain-sdk/lib/core/classes";
+import {
+    AssetTransferAddress,
+    PlatformAddress
+} from "codechain-sdk/lib/key/classes";
+import { blake256, getAccountIdFromPublic } from "codechain-sdk/lib/utils";
 import _ = require("lodash");
 
+import { networkId } from "./const";
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType } from "./types";
-import { networkId } from "./const";
 
 export function getAddressFromPublic(
     accountType: AccountType,

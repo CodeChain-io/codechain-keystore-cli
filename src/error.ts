@@ -21,9 +21,7 @@ function getErrorMessage(type: CLIErrorType, args: any = {}) {
         case CLIErrorType.InvalidAccountType:
             return "Account-type should be 'platform' or 'asset'";
         case CLIErrorType.InvalidAction:
-            return `Action should one of the ${JSON.stringify(
-                actions
-            )}`;
+            return `Action should one of the ${JSON.stringify(actions)}`;
         case CLIErrorType.OptionRequired:
             return `Option --${args.optionName} is required`;
         case CLIErrorType.NoSuchAddress:

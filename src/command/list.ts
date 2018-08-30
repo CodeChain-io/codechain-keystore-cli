@@ -1,10 +1,13 @@
-import * as _ from "lodash";
 import { CCKey } from "codechain-keystore";
+import * as _ from "lodash";
 
 import { AccountType } from "../types";
 import { getAddressFromPublic } from "../util";
 
-export async function listKeys(cckey: CCKey, accountType: AccountType): Promise<void> {
+export async function listKeys(
+    cckey: CCKey,
+    accountType: AccountType
+): Promise<void> {
     let keys = await cckey[accountType].getKeys();
     keys = _.map(keys, publicKey =>
         getAddressFromPublic(accountType, publicKey)
