@@ -14,7 +14,6 @@ import { deleteKey } from "./command/delete";
 commander
     .version("0.1.1")
     .arguments("[action]")
-    // FIXME: get passphrase interactively
     .option("-t --account-type <account-type>", "'platform' or 'asset'. The type of the key")
     .option("-p --passphrase <passphrase>", "passphrase")
     .option("-a --address <address>", "address")
