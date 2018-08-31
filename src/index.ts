@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { CCKey } from "codechain-keystore";
-import * as commander from "commander";
+import * as program from "commander";
 import * as _ from "lodash";
 import * as process from "process";
 
@@ -11,7 +11,7 @@ import { listKeys } from "./command/list";
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType, Option } from "./types";
 
-commander
+program
     .version("0.1.1")
     .arguments("[action]")
     .option(
@@ -22,7 +22,7 @@ commander
     .option("-a --address <address>", "address")
     .action(main);
 
-commander.on("--help", () => {
+program.on("--help", () => {
     console.log(`  Action:
 
     list     : List all the saved addresses
@@ -42,7 +42,7 @@ commander.on("--help", () => {
 
 async function main(action: string, option: Option) {
     if (!action) {
-        commander.outputHelp();
+        program.outputHelp();
         process.exit(1);
         return;
     }
@@ -71,7 +71,7 @@ async function main(action: string, option: Option) {
     }
 }
 
-commander.parse(process.argv);
+program.parse(process.argv);
 
 function getAccountType(option: Option): AccountType {
     const accountType = option.accountType;
