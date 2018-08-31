@@ -20,7 +20,8 @@ program
     .description("list keys")
     .option(
         "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key"
+        "'platform' or 'asset'. The type of the key",
+        "platform"
     )
     .action(handleError(listCommand));
 
@@ -29,7 +30,8 @@ program
     .description("create a new key")
     .option(
         "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key"
+        "'platform' or 'asset'. The type of the key",
+        "platform"
     )
     .option("-p, --passphrase <passphrase>", "passphrase")
     .action(handleError(createCommand));
@@ -39,7 +41,8 @@ program
     .description("delete the key")
     .option(
         "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key"
+        "'platform' or 'asset'. The type of the key",
+        "platform"
     )
     .option("-a, --address <address>", "address")
     .action(handleError(deleteCommand));
