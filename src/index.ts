@@ -21,48 +21,34 @@ import {
 
 const VERSION = "0.1.1";
 
-program.version(VERSION);
-
 program
-    .command("list")
-    .description("list keys")
+    .version(VERSION)
     .option(
         "-t, --account-type <accountType>",
         "'platform' or 'asset'. The type of the key",
         "platform"
-    )
+    );
+
+program
+    .command("list")
+    .description("list keys")
     .action(handleError(listCommand));
 
 program
     .command("create")
     .description("create a new key")
-    .option(
-        "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key",
-        "platform"
-    )
     .option("-p, --passphrase <passphrase>", "passphrase")
     .action(handleError(createCommand));
 
 program
     .command("delete")
     .description("delete the key")
-    .option(
-        "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key",
-        "platform"
-    )
     .option("-a, --address <address>", "address")
     .action(handleError(deleteCommand));
 
 program
     .command("import <path>")
     .description("import a key")
-    .option(
-        "-t, --account-type <accountType>",
-        "'platform' or 'asset'. The type of the key",
-        "platform"
-    )
     .option("-p, --passphrase <passphrase>", "passphrase")
     .action(handleError(importCommand));
 
@@ -81,27 +67,27 @@ function handleError(
 
 async function listCommand(option: ListOption) {
     const cckey = await CCKey.create();
-    const accountType = parseAccountType(option.accountType);
+    const accountType = parseAccountType(option.parent.accountType);
     await listKeys(cckey, accountType);
 }
 
 async function createCommand(option: CreateOption) {
     const cckey = await CCKey.create();
-    const accountType = parseAccountType(option.accountType);
+    const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     await createKey(cckey, accountType, passphrase);
 }
 
 async function deleteCommand(option: DeleteOption) {
     const cckey = await CCKey.create();
-    const accountType = parseAccountType(option.accountType);
+    const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
     await deleteKey(cckey, accountType, address);
 }
 
 async function importCommand(path: string, option: ImportOption) {
     const cckey = await CCKey.create();
-    const accountType = parseAccountType(option.accountType);
+    const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     const contents = fs.readFileSync(path, { encoding: "utf8" });
     await importKey(cckey, accountType, JSON.parse(contents), passphrase);

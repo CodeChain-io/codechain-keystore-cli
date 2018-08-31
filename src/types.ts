@@ -2,20 +2,28 @@ export type AccountType = "platform" | "asset";
 export type Action = "list" | "create" | "delete";
 
 export interface ListOption {
-    accountType: string;
+    parent: {
+        accountType: string;
+    };
 }
 
 export interface CreateOption {
-    accountType: string;
+    parent: {
+        accountType: string;
+    };
     passphrase: string;
 }
 
 export interface DeleteOption {
-    accountType: string;
+    parent: {
+        accountType: string;
+    };
     address: string;
 }
 
 export interface ImportOption {
-    accountType: string;
+    parent: {
+        accountType: string;
+    };
     passphrase: string;
 }
