@@ -33,7 +33,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "codechain-keystore": "^0.1.0",
+    "codechain-keystore": "git://github.com/CodeChain-io/codechain-keystore.git#5a106d3b10717457f02a6fba5e9846d28671b128",
     "codechain-sdk": "^0.1.0-alpha.21.rc1",
     "commander": "^2.17.1",
     "enquirer": "^1.0.3",
