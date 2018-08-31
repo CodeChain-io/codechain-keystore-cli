@@ -11,7 +11,9 @@ import { listKeys } from "./command/list";
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType, CreateOption, DeleteOption, ListOption } from "./types";
 
-program.version("0.1.1");
+const VERSION = "0.1.1";
+
+program.version(VERSION);
 
 program
     .command("list")
