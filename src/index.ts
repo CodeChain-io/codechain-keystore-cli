@@ -9,27 +9,73 @@ import { createKey } from "./command/create";
 import { deleteKey } from "./command/delete";
 import { listKeys } from "./command/list";
 import { CLIError, CLIErrorType } from "./error";
-import { AccountType, Option } from "./types";
+import { AccountType, CreateOption, DeleteOption, ListOption } from "./types";
+
+program.version("0.1.1");
 
 program
-    .version("0.1.1")
-    .arguments("[action]")
+    .command("list")
+    .description("list keys")
     .option(
-        "-t --account-type <accountType>",
+        "-t, --account-type <accountType>",
         "'platform' or 'asset'. The type of the key"
     )
-    .option("-p --passphrase <passphrase>", "passphrase")
-    .option("-a --address <address>", "address")
-    .action(main);
+    .action(handleError(listCommand));
+
+program
+    .command("create")
+    .description("create a new key")
+    .option(
+        "-t, --account-type <accountType>",
+        "'platform' or 'asset'. The type of the key"
+    )
+    .option("-p, --passphrase <passphrase>", "passphrase")
+    .action(handleError(createCommand));
+
+program
+    .command("delete")
+    .description("delete the key")
+    .option(
+        "-t, --account-type <accountType>",
+        "'platform' or 'asset'. The type of the key"
+    )
+    .option("-a, --address <address>", "address")
+    .action(handleError(deleteCommand));
+
+function handleError(
+    f: (option: any) => Promise<void>
+): (option: any) => Promise<void> {
+    return async (option: any) => {
+        try {
+            await f(option);
+        } catch (err) {
+            console.error(err.toString());
+            process.exit(1);
+        }
+    };
+}
+
+async function listCommand(option: ListOption) {
+    const cckey = await CCKey.create();
+    const accountType = parseAccountType(option.accountType);
+    await listKeys(cckey, accountType);
+}
+
+async function createCommand(option: CreateOption) {
+    const cckey = await CCKey.create();
+    const accountType = parseAccountType(option.accountType);
+    const passphrase = parsePassphrase(option.passphrase);
+    await createKey(cckey, accountType, passphrase);
+}
+
+async function deleteCommand(option: DeleteOption) {
+    const cckey = await CCKey.create();
+    const accountType = parseAccountType(option.accountType);
+    const address = parseAddress(option.address);
+    await deleteKey(cckey, accountType, address);
+}
 
 program.on("--help", () => {
-    console.log(`  Action:
-
-    list     : List all the saved addresses
-    create   : Create new key with passphrase
-    delete   : Delete the key of the given address
-    `);
-
     console.log(`  Examples:
 
     cckey create -t platform --passphrase "my password"
@@ -40,41 +86,13 @@ program.on("--help", () => {
 `);
 });
 
-async function main(action: string, option: Option) {
-    if (!action) {
-        program.outputHelp();
-        process.exit(1);
-        return;
-    }
-    const cckey = await CCKey.create();
-    try {
-        const accountType = getAccountType(option);
-
-        switch (action) {
-            case "list":
-                await listKeys(cckey, accountType);
-                break;
-            case "create":
-                const passphrase = getPassphrase(option);
-                await createKey(cckey, accountType, passphrase);
-                break;
-            case "delete":
-                const address = getAddress(option);
-                await deleteKey(cckey, accountType, address);
-                break;
-            default:
-                throw new CLIError(CLIErrorType.InvalidAction);
-        }
-    } catch (err) {
-        console.log(err.toString());
-        process.exit(1);
-    }
+program.parse(process.argv);
+if (program.args.length === 0) {
+    program.outputHelp();
+    process.exit(1);
 }
 
-program.parse(process.argv);
-
-function getAccountType(option: Option): AccountType {
-    const accountType = option.accountType;
+function parseAccountType(accountType: string): AccountType {
     if (_.isUndefined(accountType)) {
         throw new CLIError(CLIErrorType.OptionRequired, {
             optionName: "account-type"
@@ -86,8 +104,7 @@ function getAccountType(option: Option): AccountType {
     return accountType as AccountType;
 }
 
-function getAddress(option: Option): string {
-    const address = option.address;
+function parseAddress(address: string): string {
     if (_.isUndefined(address)) {
         throw new CLIError(CLIErrorType.OptionRequired, {
             optionName: "address"
@@ -97,8 +114,7 @@ function getAddress(option: Option): string {
     return address;
 }
 
-function getPassphrase(option: Option): string {
-    const passphrase = option.passphrase;
+function parsePassphrase(passphrase: string): string {
     if (_.isUndefined(passphrase)) {
         throw new CLIError(CLIErrorType.OptionRequired, {
             optionName: "passphrase"
