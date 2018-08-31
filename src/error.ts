@@ -5,6 +5,7 @@ export enum CLIErrorType {
     InvalidAction,
     OptionRequired,
     NoSuchAddress,
+    Unreachable,
     Unknown
 }
 
@@ -26,6 +27,8 @@ function getErrorMessage(type: CLIErrorType, args: any = {}) {
             return `Option --${args.optionName} is required`;
         case CLIErrorType.NoSuchAddress:
             return `${args.address} is not found`;
+        case CLIErrorType.Unreachable:
+            return "Unreachable code reached";
         case CLIErrorType.Unknown:
             return `Internal error ${args.message}`;
         default:
