@@ -14,3 +14,8 @@ export interface DeleteOption {
     accountType: string;
     address: string;
 }
+
+export interface ImportOption {
+    accountType: string;
+    passphrase: string;
+}

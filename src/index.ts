@@ -2,14 +2,22 @@
 
 import { CCKey } from "codechain-keystore";
 import * as program from "commander";
+import * as fs from "fs";
 import * as _ from "lodash";
 import * as process from "process";
 
 import { createKey } from "./command/create";
 import { deleteKey } from "./command/delete";
+import { importKey } from "./command/import";
 import { listKeys } from "./command/list";
 import { CLIError, CLIErrorType } from "./error";
-import { AccountType, CreateOption, DeleteOption, ListOption } from "./types";
+import {
+    AccountType,
+    CreateOption,
+    DeleteOption,
+    ImportOption,
+    ListOption
+} from "./types";
 
 const VERSION = "0.1.1";
 
@@ -47,12 +55,23 @@ program
     .option("-a, --address <address>", "address")
     .action(handleError(deleteCommand));
 
+program
+    .command("import <path>")
+    .description("import a key")
+    .option(
+        "-t, --account-type <accountType>",
+        "'platform' or 'asset'. The type of the key",
+        "platform"
+    )
+    .option("-p, --passphrase <passphrase>", "passphrase")
+    .action(handleError(importCommand));
+
 function handleError(
-    f: (option: any) => Promise<void>
-): (option: any) => Promise<void> {
-    return async (option: any) => {
+    f: (...args: any[]) => Promise<void>
+): (...args: any[]) => Promise<void> {
+    return async (...args: any[]) => {
         try {
-            await f(option);
+            await f(...args);
         } catch (err) {
             console.error(err.toString());
             process.exit(1);
@@ -78,6 +97,14 @@ async function deleteCommand(option: DeleteOption) {
     const accountType = parseAccountType(option.accountType);
     const address = parseAddress(option.address);
     await deleteKey(cckey, accountType, address);
+}
+
+async function importCommand(path: string, option: ImportOption) {
+    const cckey = await CCKey.create();
+    const accountType = parseAccountType(option.accountType);
+    const passphrase = parsePassphrase(option.passphrase);
+    const contents = fs.readFileSync(path, { encoding: "utf8" });
+    await importKey(cckey, accountType, JSON.parse(contents), passphrase);
 }
 
 program.on("--help", () => {
