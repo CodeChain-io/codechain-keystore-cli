@@ -8,6 +8,7 @@ import * as process from "process";
 
 import { createKey } from "./command/create";
 import { deleteKey } from "./command/delete";
+import { exportKey } from "./command/export";
 import { importKey } from "./command/import";
 import { listKeys } from "./command/list";
 import { CLIError, CLIErrorType } from "./error";
@@ -15,6 +16,7 @@ import {
     AccountType,
     CreateOption,
     DeleteOption,
+    ExportOption,
     ImportOption,
     ListOption
 } from "./types";
@@ -51,6 +53,13 @@ program
     .description("import a key")
     .option("-p, --passphrase <passphrase>", "passphrase")
     .action(handleError(importCommand));
+
+program
+    .command("export")
+    .description("export the key")
+    .option("-a, --address <address>", "address")
+    .option("-p, --passphrase <passphrase>", "passphrase")
+    .action(handleError(exportCommand));
 
 function handleError(
     f: (...args: any[]) => Promise<void>
@@ -91,6 +100,15 @@ async function importCommand(path: string, option: ImportOption) {
     const passphrase = parsePassphrase(option.passphrase);
     const contents = fs.readFileSync(path, { encoding: "utf8" });
     await importKey(cckey, accountType, JSON.parse(contents), passphrase);
+}
+
+async function exportCommand(option: ExportOption) {
+    const cckey = await CCKey.create();
+    const accountType = parseAccountType(option.parent.accountType);
+    const address = parseAddress(option.address);
+    const passphrase = parsePassphrase(option.passphrase);
+    const secret = await exportKey(cckey, accountType, address, passphrase);
+    console.log(JSON.stringify(secret, null, 2));
 }
 
 program.on("--help", () => {

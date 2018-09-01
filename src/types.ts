@@ -27,3 +27,11 @@ export interface ImportOption {
     };
     passphrase: string;
 }
+
+export interface ExportOption {
+    parent: {
+        accountType: string;
+    };
+    address: string;
+    passphrase: string;
+}
