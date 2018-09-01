@@ -59,6 +59,7 @@ program
     .description("export the key")
     .option("-a, --address <address>", "address")
     .option("-p, --passphrase <passphrase>", "passphrase")
+    .option("--pretty", "pretty-print the output")
     .action(handleError(exportCommand));
 
 function handleError(
@@ -108,7 +109,10 @@ async function exportCommand(option: ExportOption) {
     const address = parseAddress(option.address);
     const passphrase = parsePassphrase(option.passphrase);
     const secret = await exportKey(cckey, accountType, address, passphrase);
-    console.log(JSON.stringify(secret, null, 2));
+    const res = option.pretty
+        ? JSON.stringify(secret, null, 2)
+        : JSON.stringify(secret);
+    console.log(res);
 }
 
 program.on("--help", () => {

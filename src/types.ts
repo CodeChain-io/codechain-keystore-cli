@@ -34,4 +34,5 @@ export interface ExportOption {
     };
     address: string;
     passphrase: string;
+    pretty: boolean;
 }
