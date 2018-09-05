@@ -1,25 +1,23 @@
-import { H256 } from "codechain-sdk/lib/core/classes";
 import {
     AssetTransferAddress,
     PlatformAddress
 } from "codechain-sdk/lib/key/classes";
-import { blake256, getAccountIdFromPublic } from "codechain-sdk/lib/utils";
 import _ = require("lodash");
 
 import { networkId } from "./const";
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType } from "./types";
 
-export function getAddressFromPublic(
+export function getAddressFromKey(
     accountType: AccountType,
-    publicKey: string
+    key: string
 ): string {
     if (accountType === "platform") {
-        const accountId = getAccountIdFromPublic(publicKey);
+        const accountId = key;
         const platformAddress = PlatformAddress.fromAccountId(accountId);
         return platformAddress.toString();
     } else if (accountType === "asset") {
-        const hash = H256.ensure(blake256(publicKey));
+        const hash = key;
         const assetAddress = AssetTransferAddress.fromTypeAndPayload(1, hash, {
             networkId
         });
@@ -29,18 +27,16 @@ export function getAddressFromPublic(
     }
 }
 
-export function findPublicKey(
+export function findKey(
     accountType: AccountType,
-    publicKeys: string[],
+    keys: string[],
     address: string
 ): string {
-    const addresses = _.map(publicKeys, key =>
-        getAddressFromPublic(accountType, key)
-    );
+    const addresses = _.map(keys, key => getAddressFromKey(accountType, key));
     const index = _.indexOf(addresses, address);
     if (index === -1) {
         throw new CLIError(CLIErrorType.NoSuchAddress, { address });
     }
 
-    return publicKeys[index];
+    return keys[index];
 }

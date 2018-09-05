@@ -1,7 +1,7 @@
 import { CCKey, SecretStorage } from "codechain-keystore";
 
 import { AccountType } from "../types";
-import { findPublicKey } from "../util";
+import { findKey } from "../util";
 
 export async function exportKey(
     cckey: CCKey,
@@ -9,10 +9,10 @@ export async function exportKey(
     address: string,
     passphrase: string
 ): Promise<SecretStorage> {
-    const publicKeys = await cckey[accountType].getKeys();
-    const publicKey = findPublicKey(accountType, publicKeys, address);
+    const keys = await cckey[accountType].getKeys();
+    const key = findKey(accountType, keys, address);
     return cckey[accountType].exportKey({
-        publicKey,
+        key,
         passphrase
     });
 }
