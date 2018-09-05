@@ -2,15 +2,15 @@ import { CCKey } from "codechain-keystore";
 
 import { CLIError, CLIErrorType } from "../error";
 import { AccountType } from "../types";
-import { findPublicKey } from "../util";
+import { findKey } from "../util";
 
 export async function deleteKey(
     cckey: CCKey,
     accountType: AccountType,
     address: string
 ): Promise<void> {
-    const publicKeys = await cckey[accountType].getKeys();
-    const publicKey = findPublicKey(accountType, publicKeys, address);
+    const keys = await cckey[accountType].getKeys();
+    const key = findKey(accountType, keys, address);
     const Enquirer = require("enquirer");
     const enquirer = new Enquirer();
     enquirer.register("confirm", require("prompt-confirm"));
@@ -22,7 +22,7 @@ export async function deleteKey(
         .then(async (answers: { delete: boolean }) => {
             if (answers.delete) {
                 const result = await cckey[accountType].deleteKey({
-                    publicKey
+                    key
                 });
                 if (!result) {
                     throw new CLIError(CLIErrorType.Unknown, {
