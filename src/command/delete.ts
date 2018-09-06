@@ -16,7 +16,8 @@ export async function deleteKey(
     const enquirer = new Enquirer();
     enquirer.register("confirm", require("prompt-confirm"));
     enquirer.question("delete", "Do you really want to delete the key?", {
-        type: "confirm"
+        type: "confirm",
+        default: false
     });
     return enquirer
         .prompt(["delete"])
