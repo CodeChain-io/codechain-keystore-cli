@@ -2,16 +2,14 @@ import { CCKey } from "codechain-keystore";
 import * as _ from "lodash";
 
 import { AccountType } from "../types";
-import { getAddressFromPublic } from "../util";
+import { getAddressFromKey } from "../util";
 
 export async function listKeys(
     cckey: CCKey,
     accountType: AccountType
 ): Promise<void> {
     let keys = await cckey[accountType].getKeys();
-    keys = _.map(keys, publicKey =>
-        getAddressFromPublic(accountType, publicKey)
-    );
+    keys = _.map(keys, key => getAddressFromKey(accountType, key));
     if (keys.length === 0) {
         console.log("");
     } else {
