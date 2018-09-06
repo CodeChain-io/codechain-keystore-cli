@@ -69,6 +69,15 @@ program
     .option("--pretty", "pretty-print the output")
     .action(handleError(exportCommand));
 
+// error on unknown commands
+program.on("command:*", () => {
+    console.error(
+        "Invalid command: %s\nSee --help for a list of available commands.",
+        program.args.join(" ")
+    );
+    process.exit(1);
+});
+
 function handleError(
     f: (...args: any[]) => Promise<void>
 ): (...args: any[]) => Promise<void> {
