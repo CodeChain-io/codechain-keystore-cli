@@ -1,11 +1,8 @@
-codechain-keystore-cli [![Build Status](https://travis-ci.org/CodeChain-io/codechain-keystore-cli.svg?branch=master)](https://travis-ci.org/CodeChain-io/codechain-keystore-cli)
-=========================
+# codechain-keystore-cli [![Build Status](https://travis-ci.org/CodeChain-io/codechain-keystore-cli.svg?branch=master)](https://travis-ci.org/CodeChain-io/codechain-keystore-cli)
 
 A command line CodeChain key management tool
 
-
-How to install
-----------------
+## How to install
 
 ### Binary install
 
@@ -23,25 +20,25 @@ npm install -g codechain-sdk-cli
 yarn global add codechain-sdk-cli
 ```
 
-How to use
-------
+## How to use
 
 ```sh
-  Usage: cckey [options] [action]
+  Usage: cckey [options] [command]
 
   Options:
 
-    -V, --version                     output the version number
-    -t --account-type <account-type>  'platform' or 'asset'. The type of the key
-    -p --passphrase <passphrase>      passphrase
-    -a --address <address>            address
-    -h, --help                        output usage information
+    -V, --version                      output the version number
+    -t, --account-type <accountType>   'platform' or 'asset'. The type of the key (default: platform)
+    -h, --help                         output usage information
 
-  Action:
+  Commands:
 
-    list     : List all the saved addresses
-    create   : Create new key with passphrase
-    delete   : Delete the key of the given address
+    list                               list keys
+    create [options]                   create a new key
+    delete [options]                   delete the key
+    import [options] <path>            import a key
+    import-raw [options] <privateKey>  import a raw private key (32 byte hexadecimal string)
+    export [options]                   export the key
 
   Examples:
 
@@ -51,4 +48,9 @@ How to use
 
     cckey delete -t platform --address "tcc..."
 
+    cckey import UTC--2018-08-14T06-30-23Z--bbb6685e-7165-819d-0988-fc1a7d2d0523 -t platform --passphrase "satoshi"
+
+    cckey export -t platform --address tccqz76va4lh6dwkuwetmfrcgpn852emyq9hvjuksfg --passphrase "satoshi"
+
+    cckey import-raw -t platform a05f81608217738d99da8fd227897b87e8890d3c9159b559c7c8bbd408e5fb6e --passphrase "satoshi"
 ```
