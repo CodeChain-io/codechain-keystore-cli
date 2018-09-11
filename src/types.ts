@@ -1,37 +1,32 @@
 export type AccountType = "platform" | "asset";
 export type Action = "list" | "create" | "delete";
 
+export interface CommonOption {
+    accountType: string;
+    keysPath: string;
+}
+
 export interface ListOption {
-    parent: {
-        accountType: string;
-    };
+    parent: CommonOption;
 }
 
 export interface CreateOption {
-    parent: {
-        accountType: string;
-    };
+    parent: CommonOption;
     passphrase: string;
 }
 
 export interface DeleteOption {
-    parent: {
-        accountType: string;
-    };
+    parent: CommonOption;
     address: string;
 }
 
 export interface ImportOption {
-    parent: {
-        accountType: string;
-    };
+    parent: CommonOption;
     passphrase: string;
 }
 
 export interface ExportOption {
-    parent: {
-        accountType: string;
-    };
+    parent: CommonOption;
     address: string;
     passphrase: string;
     pretty: boolean;

@@ -24,12 +24,19 @@ import {
 
 const VERSION = "0.1.1";
 
+const DEFAULT_KEYS_PATH = "keystore.db";
+
 program
     .version(VERSION)
     .option(
         "-t, --account-type <accountType>",
         "'platform' or 'asset'. The type of the key",
         "platform"
+    )
+    .option(
+        "--keys-path <keysPath>",
+        "the path to store the keys",
+        DEFAULT_KEYS_PATH
     );
 
 program
@@ -93,27 +100,27 @@ function handleError(
 }
 
 async function listCommand(args: any[], option: ListOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     await listKeys(cckey, accountType);
 }
 
 async function createCommand(args: any[], option: CreateOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     await createKey(cckey, accountType, passphrase);
 }
 
 async function deleteCommand(args: any[], option: DeleteOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
     await deleteKey(cckey, accountType, address);
 }
 
 async function importCommand([path]: any[], option: ImportOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     const contents = fs.readFileSync(path, { encoding: "utf8" });
@@ -121,14 +128,14 @@ async function importCommand([path]: any[], option: ImportOption) {
 }
 
 async function importRawCommand([privateKey]: any[], option: ImportOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     await importRawKey(cckey, accountType, privateKey, passphrase);
 }
 
 async function exportCommand(args: any[], option: ExportOption) {
-    const cckey = await CCKey.create();
+    const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
     const passphrase = parsePassphrase(option.passphrase);
