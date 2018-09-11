@@ -1,6 +1,6 @@
 # codechain-keystore-cli [![Build Status](https://travis-ci.org/CodeChain-io/codechain-keystore-cli.svg?branch=master)](https://travis-ci.org/CodeChain-io/codechain-keystore-cli)
 
-A command line CodeChain key management tool
+A command line for CodeChain's key management tool
 
 ## How to install
 
@@ -8,13 +8,13 @@ A command line CodeChain key management tool
 
 You can download the latest binaries from [here](https://github.com/CodeChain-io/codechain-keystore-cli/releases/tag/0.1.1)
 
-### Install using a package manager (npm)
+### Install using the npm package manager 
 
 ```sh
 npm install -g codechain-sdk-cli
 ```
 
-### Install using a package manager (yarn)
+### Install using the yarn package manager 
 
 ```sh
 yarn global add codechain-sdk-cli
