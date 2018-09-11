@@ -83,7 +83,8 @@ function handleError(
 ): (...args: any[]) => Promise<void> {
     return async (...args: any[]) => {
         try {
-            await f(...args);
+            const option = args.pop();
+            await f(args, option);
         } catch (err) {
             console.error(err.toString());
             process.exit(1);
@@ -91,27 +92,27 @@ function handleError(
     };
 }
 
-async function listCommand(option: ListOption) {
+async function listCommand(args: any[], option: ListOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     await listKeys(cckey, accountType);
 }
 
-async function createCommand(option: CreateOption) {
+async function createCommand(args: any[], option: CreateOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     await createKey(cckey, accountType, passphrase);
 }
 
-async function deleteCommand(option: DeleteOption) {
+async function deleteCommand(args: any[], option: DeleteOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
     await deleteKey(cckey, accountType, address);
 }
 
-async function importCommand(path: string, option: ImportOption) {
+async function importCommand([path]: any[], option: ImportOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
@@ -119,14 +120,14 @@ async function importCommand(path: string, option: ImportOption) {
     await importKey(cckey, accountType, JSON.parse(contents), passphrase);
 }
 
-async function importRawCommand(privateKey: string, option: ImportOption) {
+async function importRawCommand([privateKey]: any[], option: ImportOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = parsePassphrase(option.passphrase);
     await importRawKey(cckey, accountType, privateKey, passphrase);
 }
 
-async function exportCommand(option: ExportOption) {
+async function exportCommand(args: any[], option: ExportOption) {
     const cckey = await CCKey.create();
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
