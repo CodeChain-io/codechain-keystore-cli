@@ -52,7 +52,7 @@ program
 
 program
     .command("delete")
-    .description("delete the key")
+    .description("delete a key")
     .option("-a, --address <address>", "address")
     .action(handleError(deleteCommand));
 

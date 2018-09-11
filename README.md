@@ -8,13 +8,13 @@ A command line for CodeChain's key management tool
 
 You can download the latest binaries from [here](https://github.com/CodeChain-io/codechain-keystore-cli/releases/tag/0.1.1)
 
-### Install using the npm package manager 
+### Install using the npm package manager
 
 ```sh
 npm install -g codechain-sdk-cli
 ```
 
-### Install using the yarn package manager 
+### Install using the yarn package manager
 
 ```sh
 yarn global add codechain-sdk-cli
@@ -36,7 +36,7 @@ yarn global add codechain-sdk-cli
 
     list                               list keys
     create [options]                   create a new key
-    delete [options]                   delete the key
+    delete [options]                   delete a key
     import [options] <path>            import a key
     import-raw [options] <privateKey>  import a raw private key (32 byte hexadecimal string)
     export [options]                   export the key
