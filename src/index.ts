@@ -108,7 +108,7 @@ async function listCommand(args: any[], option: ListOption) {
 async function createCommand(args: any[], option: CreateOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const passphrase = parsePassphrase(option.passphrase);
+    const passphrase = await parsePassphrase(option.passphrase);
     await createKey(cckey, accountType, passphrase);
 }
 
@@ -122,7 +122,7 @@ async function deleteCommand(args: any[], option: DeleteOption) {
 async function importCommand([path]: any[], option: ImportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const passphrase = parsePassphrase(option.passphrase);
+    const passphrase = await parsePassphrase(option.passphrase);
     const contents = fs.readFileSync(path, { encoding: "utf8" });
     await importKey(cckey, accountType, JSON.parse(contents), passphrase);
 }
@@ -130,7 +130,7 @@ async function importCommand([path]: any[], option: ImportOption) {
 async function importRawCommand([privateKey]: any[], option: ImportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const passphrase = parsePassphrase(option.passphrase);
+    const passphrase = await parsePassphrase(option.passphrase);
     await importRawKey(cckey, accountType, privateKey, passphrase);
 }
 
@@ -138,7 +138,7 @@ async function exportCommand(args: any[], option: ExportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
-    const passphrase = parsePassphrase(option.passphrase);
+    const passphrase = await parsePassphrase(option.passphrase);
     const secret = await exportKey(cckey, accountType, address, passphrase);
     const res = option.pretty
         ? JSON.stringify(secret, null, 2)
@@ -191,11 +191,19 @@ function parseAddress(address: string): string {
     return address;
 }
 
-function parsePassphrase(passphrase: string): string {
-    if (_.isUndefined(passphrase)) {
-        throw new CLIError(CLIErrorType.OptionRequired, {
-            optionName: "passphrase"
-        });
+async function parsePassphrase(passphrase: string): Promise<string> {
+    if (!_.isUndefined(passphrase)) {
+        return passphrase;
     }
-    return passphrase;
+
+    const Enquirer = require("enquirer");
+    const enquirer = new Enquirer();
+    enquirer.register("password", require("prompt-password"));
+    var questions = {
+        type: "password",
+        message: "Enter your passphrase please",
+        name: "passphrase"
+    };
+    const answers = await enquirer.ask(questions);
+    return answers.passphrase;
 }

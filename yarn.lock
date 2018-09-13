@@ -1887,6 +1887,13 @@ prompt-input@^3.0.0:
     debug "^2.6.8"
     prompt-base "^4.0.2"
 
+prompt-password@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/prompt-password/-/prompt-password-1.2.0.tgz#87dba4afd5c34954e511c2c069fb922dab60b718"
+  dependencies:
+    debug "^2.6.8"
+    prompt-base "^4.0.2"
+
 prompt-question@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/prompt-question/-/prompt-question-3.0.3.tgz#c55858bd76b1878c1eaaecb917a928a9c13c8a37"
