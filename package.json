@@ -38,6 +38,7 @@
     "commander": "^2.17.1",
     "enquirer": "^1.0.3",
     "lodash": "^4.17.10",
-    "prompt-confirm": "^2.0.4"
+    "prompt-confirm": "^2.0.4",
+    "prompt-password": "^1.2.0"
   }
 }
