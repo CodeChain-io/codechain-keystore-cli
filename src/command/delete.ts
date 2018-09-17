@@ -8,10 +8,11 @@ import { findMatchingKey } from "../util";
 export async function deleteKey(
     cckey: CCKey,
     accountType: AccountType,
-    address: string
+    address: string,
+    networkId: string
 ): Promise<void> {
     const keys = await cckey[accountType].getKeys();
-    const key = findMatchingKey(accountType, keys, address);
+    const key = findMatchingKey(accountType, keys, address, networkId);
     const Enquirer = require("enquirer");
     const enquirer = new Enquirer();
     enquirer.register("confirm", require("prompt-confirm"));

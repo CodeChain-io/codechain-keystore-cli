@@ -5,13 +5,18 @@ import {
 } from "codechain-sdk/lib/key/classes";
 import _ = require("lodash");
 
-import { networkId } from "./const";
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType } from "./types";
 
-export function getAddressFromKey(accountType: AccountType, key: Key): string {
+export function getAddressFromKey(
+    accountType: AccountType,
+    key: Key,
+    networkId: string
+): string {
     if (accountType === "platform") {
-        const platformAddress = PlatformAddress.fromAccountId(key);
+        const platformAddress = PlatformAddress.fromAccountId(key, {
+            networkId
+        });
         return platformAddress.toString();
     } else if (accountType === "asset") {
         const assetAddress = AssetTransferAddress.fromTypeAndPayload(1, key, {
@@ -26,9 +31,12 @@ export function getAddressFromKey(accountType: AccountType, key: Key): string {
 export function findMatchingKey(
     accountType: AccountType,
     keys: Key[],
-    address: string
+    address: string,
+    networkId: string
 ): string {
-    const addresses = _.map(keys, key => getAddressFromKey(accountType, key));
+    const addresses = _.map(keys, key =>
+        getAddressFromKey(accountType, key, networkId)
+    );
     const index = _.indexOf(addresses, address);
     if (index === -1) {
         throw new CLIError(CLIErrorType.NoSuchAddress, { address });

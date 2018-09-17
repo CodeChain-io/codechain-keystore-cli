@@ -7,11 +7,12 @@ import { getAddressFromKey } from "../util";
 export async function createKey(
     cckey: CCKey,
     accountType: AccountType,
-    passphrase: string
+    passphrase: string,
+    networkId: string
 ): Promise<void> {
     const key = await cckey[accountType].createKey({
         passphrase
     });
 
-    console.log(getAddressFromKey(accountType, key));
+    console.log(getAddressFromKey(accountType, key, networkId));
 }

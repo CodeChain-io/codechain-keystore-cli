@@ -4,6 +4,7 @@ export type Action = "list" | "create" | "delete";
 export interface CommonOption {
     accountType: string;
     keysPath: string;
+    networkId: string;
 }
 
 export interface ListOption {
