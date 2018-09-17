@@ -3,6 +3,7 @@ import { Action } from "./types";
 export enum CLIErrorType {
     InvalidAccountType,
     InvalidAction,
+    InvalidAddress,
     OptionRequired,
     NoSuchAddress,
     Unknown
@@ -22,6 +23,8 @@ function getErrorMessage(type: CLIErrorType, args: any = {}) {
             return "Account-type should be 'platform' or 'asset'";
         case CLIErrorType.InvalidAction:
             return `Action should one of the ${JSON.stringify(actions)}`;
+        case CLIErrorType.InvalidAddress:
+            return `Address error: ${args.message}`;
         case CLIErrorType.OptionRequired:
             return `Option --${args.optionName} is required`;
         case CLIErrorType.NoSuchAddress:
