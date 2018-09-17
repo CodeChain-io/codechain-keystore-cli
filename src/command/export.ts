@@ -1,14 +1,12 @@
-import { CCKey, SecretStorage } from "codechain-keystore";
+import { SecretStorage } from "codechain-keystore";
 
-import { AccountType } from "../types";
+import { Context } from "../types";
 import { findMatchingKey } from "../util";
 
 export async function exportKey(
-    cckey: CCKey,
-    accountType: AccountType,
+    { cckey, accountType, networkId }: Context,
     address: string,
-    passphrase: string,
-    networkId: string
+    passphrase: string
 ): Promise<SecretStorage> {
     const keys = await cckey[accountType].getKeys();
     const key = findMatchingKey(accountType, keys, address, networkId);

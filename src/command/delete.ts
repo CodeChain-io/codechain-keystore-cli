@@ -1,15 +1,12 @@
-import { CCKey } from "codechain-keystore";
 import * as _ from "lodash";
 
 import { CLIError, CLIErrorType } from "../error";
-import { AccountType } from "../types";
+import { Context } from "../types";
 import { findMatchingKey } from "../util";
 
 export async function deleteKey(
-    cckey: CCKey,
-    accountType: AccountType,
-    address: string,
-    networkId: string
+    { cckey, accountType, networkId }: Context,
+    address: string
 ): Promise<void> {
     const keys = await cckey[accountType].getKeys();
     const key = findMatchingKey(accountType, keys, address, networkId);
