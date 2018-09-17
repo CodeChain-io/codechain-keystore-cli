@@ -30,6 +30,7 @@ yarn global add codechain-sdk-cli
     -V, --version                      output the version number
     -t, --account-type <accountType>   'platform' or 'asset'. The type of the key (default: platform)
     --keys-path <keysPath>             the path to store the keys (default: keystore.db)
+    --network-id <networkId>           the id of the network (use 'tc' for husky, use 'sc' for saluki) (default: tc)
     -h, --help                         output usage information
 
   Commands:
