@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 import { CCKey } from "codechain-keystore";
+import {
+    AssetTransferAddress,
+    PlatformAddress
+} from "codechain-sdk/lib/key/classes";
 import * as program from "commander";
 import * as fs from "fs";
 import * as _ from "lodash";
@@ -133,7 +137,7 @@ async function createCommand(args: any[], option: CreateOption) {
 async function deleteCommand(args: any[], option: DeleteOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const address = parseAddress(option.address);
+    const address = parseAddress(accountType, option.address);
     const networkId = option.parent.networkId;
     await deleteKey(
         {
@@ -181,7 +185,7 @@ async function importRawCommand([privateKey]: any[], option: ImportOption) {
 async function exportCommand(args: any[], option: ExportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const address = parseAddress(option.address);
+    const address = parseAddress(accountType, option.address);
     const passphrase = await parsePassphrase(option.passphrase);
     const networkId = option.parent.networkId;
     const secret = await exportKey(
@@ -234,13 +238,23 @@ function parseAccountType(accountType: string): AccountType {
     return accountType as AccountType;
 }
 
-function parseAddress(address: string): string {
+function parseAddress(accountType: AccountType, address: string): string {
     if (_.isUndefined(address)) {
         throw new CLIError(CLIErrorType.OptionRequired, {
             optionName: "address"
         });
     }
-    // FIXME: Validate the address.
+    try {
+        if (accountType === "platform") {
+            PlatformAddress.fromString(address);
+        } else {
+            AssetTransferAddress.fromString(address);
+        }
+    } catch (err) {
+        throw new CLIError(CLIErrorType.InvalidAddress, {
+            message: err.message
+        });
+    }
     return address;
 }
 
