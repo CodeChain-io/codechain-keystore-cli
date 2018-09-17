@@ -2,7 +2,7 @@ import { Key } from "codechain-keystore/lib/types";
 import {
     AssetTransferAddress,
     PlatformAddress
-} from "codechain-sdk/lib/key/classes";
+} from "codechain-primitives";
 import _ = require("lodash");
 
 import { CLIError, CLIErrorType } from "./error";
