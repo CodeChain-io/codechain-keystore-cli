@@ -6,10 +6,11 @@ import { getAddressFromKey } from "../util";
 
 export async function listKeys(
     cckey: CCKey,
-    accountType: AccountType
+    accountType: AccountType,
+    networkId: string
 ): Promise<void> {
     let keys = await cckey[accountType].getKeys();
-    keys = _.map(keys, key => getAddressFromKey(accountType, key));
+    keys = _.map(keys, key => getAddressFromKey(accountType, key, networkId));
     if (keys.length === 0) {
         console.log("");
     } else {

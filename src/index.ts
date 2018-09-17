@@ -37,6 +37,11 @@ program
         "--keys-path <keysPath>",
         "the path to store the keys",
         DEFAULT_KEYS_PATH
+    )
+    .option(
+        "--network-id <networkId>",
+        "the id of the network (use 'tc' for husky, use 'sc' for saluki)",
+        "tc"
     );
 
 program
@@ -102,21 +107,24 @@ function handleError(
 async function listCommand(args: any[], option: ListOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    await listKeys(cckey, accountType);
+    const networkId = option.parent.networkId;
+    await listKeys(cckey, accountType, networkId);
 }
 
 async function createCommand(args: any[], option: CreateOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = await parsePassphrase(option.passphrase);
-    await createKey(cckey, accountType, passphrase);
+    const networkId = option.parent.networkId;
+    await createKey(cckey, accountType, passphrase, networkId);
 }
 
 async function deleteCommand(args: any[], option: DeleteOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
-    await deleteKey(cckey, accountType, address);
+    const networkId = option.parent.networkId;
+    await deleteKey(cckey, accountType, address, networkId);
 }
 
 async function importCommand([path]: any[], option: ImportOption) {
@@ -124,14 +132,22 @@ async function importCommand([path]: any[], option: ImportOption) {
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = await parsePassphrase(option.passphrase);
     const contents = fs.readFileSync(path, { encoding: "utf8" });
-    await importKey(cckey, accountType, JSON.parse(contents), passphrase);
+    const networkId = option.parent.networkId;
+    await importKey(
+        cckey,
+        accountType,
+        JSON.parse(contents),
+        passphrase,
+        networkId
+    );
 }
 
 async function importRawCommand([privateKey]: any[], option: ImportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
     const passphrase = await parsePassphrase(option.passphrase);
-    await importRawKey(cckey, accountType, privateKey, passphrase);
+    const networkId = option.parent.networkId;
+    await importRawKey(cckey, accountType, privateKey, passphrase, networkId);
 }
 
 async function exportCommand(args: any[], option: ExportOption) {
@@ -139,7 +155,14 @@ async function exportCommand(args: any[], option: ExportOption) {
     const accountType = parseAccountType(option.parent.accountType);
     const address = parseAddress(option.address);
     const passphrase = await parsePassphrase(option.passphrase);
-    const secret = await exportKey(cckey, accountType, address, passphrase);
+    const networkId = option.parent.networkId;
+    const secret = await exportKey(
+        cckey,
+        accountType,
+        address,
+        passphrase,
+        networkId
+    );
     const res = option.pretty
         ? JSON.stringify(secret, null, 2)
         : JSON.stringify(secret);

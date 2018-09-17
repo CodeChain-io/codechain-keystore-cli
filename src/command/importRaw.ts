@@ -9,12 +9,13 @@ export async function importRawKey(
     cckey: CCKey,
     accountType: AccountType,
     privateKey: PrivateKey,
-    passphrase: string
+    passphrase: string,
+    networkId: string
 ): Promise<void> {
     const key = await cckey[accountType].importRaw({
         privateKey,
         passphrase
     });
 
-    console.log(getAddressFromKey(accountType, key));
+    console.log(getAddressFromKey(accountType, key, networkId));
 }

@@ -8,12 +8,13 @@ export async function importKey(
     cckey: CCKey,
     accountType: AccountType,
     secret: SecretStorage,
-    passphrase: string
+    passphrase: string,
+    networkId: string
 ): Promise<void> {
     const key = await cckey[accountType].importKey({
         secret,
         passphrase
     });
 
-    console.log(getAddressFromKey(accountType, key));
+    console.log(getAddressFromKey(accountType, key, networkId));
 }
