@@ -1,15 +1,13 @@
-import { CCKey, SecretStorage } from "codechain-keystore";
+import { SecretStorage } from "codechain-keystore";
 import * as _ from "lodash";
 
-import { AccountType } from "../types";
+import { Context } from "../types";
 import { getAddressFromKey } from "../util";
 
 export async function importKey(
-    cckey: CCKey,
-    accountType: AccountType,
+    { cckey, accountType, networkId }: Context,
     secret: SecretStorage,
-    passphrase: string,
-    networkId: string
+    passphrase: string
 ): Promise<void> {
     const key = await cckey[accountType].importKey({
         secret,

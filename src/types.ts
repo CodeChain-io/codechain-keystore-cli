@@ -1,3 +1,5 @@
+import { CCKey } from "codechain-keystore";
+
 export type AccountType = "platform" | "asset";
 export type Action = "list" | "create" | "delete";
 
@@ -31,4 +33,10 @@ export interface ExportOption {
     address: string;
     passphrase: string;
     pretty: boolean;
+}
+
+export interface Context {
+    cckey: CCKey;
+    accountType: AccountType;
+    networkId: string;
 }
