@@ -199,7 +199,7 @@ async function parsePassphrase(passphrase: string): Promise<string> {
     const Enquirer = require("enquirer");
     const enquirer = new Enquirer();
     enquirer.register("password", require("prompt-password"));
-    var questions = {
+    const questions = {
         type: "password",
         message: "Enter your passphrase please",
         name: "passphrase"
