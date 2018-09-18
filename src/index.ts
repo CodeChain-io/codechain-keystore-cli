@@ -4,7 +4,7 @@ import { CCKey } from "codechain-keystore";
 import {
     AssetTransferAddress,
     PlatformAddress
-} from "codechain-sdk/lib/key/classes";
+} from "codechain-primitives";
 import * as program from "commander";
 import * as fs from "fs";
 import * as _ from "lodash";
