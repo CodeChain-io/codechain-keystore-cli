@@ -1,8 +1,5 @@
 import { Key } from "codechain-keystore/lib/types";
-import {
-    AssetTransferAddress,
-    PlatformAddress
-} from "codechain-primitives";
+import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
 import _ = require("lodash");
 
 import { CLIError, CLIErrorType } from "./error";

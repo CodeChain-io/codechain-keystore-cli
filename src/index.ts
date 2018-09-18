@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
 import { CCKey } from "codechain-keystore";
-import {
-    AssetTransferAddress,
-    PlatformAddress
-} from "codechain-primitives";
+import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
 import * as program from "commander";
 import * as fs from "fs";
 import * as _ from "lodash";
