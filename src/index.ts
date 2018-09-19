@@ -269,5 +269,8 @@ async function parsePassphrase(passphrase: string): Promise<string> {
         name: "passphrase"
     };
     const answers = await enquirer.ask(questions);
+    if (_.isUndefined(answers.passphrase)) {
+        return "";
+    }
     return answers.passphrase;
 }
