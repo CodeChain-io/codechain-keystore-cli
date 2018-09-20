@@ -1579,6 +1579,14 @@ prompt-base@^4.0.1, prompt-base@^4.0.2:
     readline-utils "^2.2.3"
     static-extend "^0.1.2"
 
+prompt-checkbox@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/prompt-checkbox/-/prompt-checkbox-2.2.0.tgz#a1b086bac7e3422a3f1c34f66d6da52486472690"
+  dependencies:
+    ansi-cyan "^0.1.1"
+    debug "^2.6.8"
+    prompt-base "^4.0.2"
+
 prompt-choices@^3.0.3:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/prompt-choices/-/prompt-choices-3.0.6.tgz#5c35c3d99ee17edfd9563c1fb81046b0849ef8ff"
@@ -1636,6 +1644,14 @@ prompt-input@^3.0.0:
     debug "^2.6.8"
     prompt-base "^4.0.2"
 
+prompt-list@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/prompt-list/-/prompt-list-3.2.0.tgz#b33472e01677a5751f59094fa7fe20b09da9db94"
+  dependencies:
+    ansi-cyan "^0.1.1"
+    ansi-dim "^0.1.1"
+    prompt-radio "^1.2.1"
+
 prompt-password@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/prompt-password/-/prompt-password-1.2.0.tgz#87dba4afd5c34954e511c2c069fb922dab60b718"
@@ -1666,6 +1682,13 @@ prompt-question@^5.0.1:
     kind-of "^5.0.2"
     koalas "^1.0.2"
     prompt-choices "^4.0.5"
+
+prompt-radio@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/prompt-radio/-/prompt-radio-1.2.1.tgz#66a4cb2b189d3373e7f9ddbbc10700186c8959ff"
+  dependencies:
+    debug "^2.6.8"
+    prompt-checkbox "^2.2.0"
 
 punycode@^1.4.1:
   version "1.4.1"

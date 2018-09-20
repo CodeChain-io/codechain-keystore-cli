@@ -22,6 +22,7 @@ import {
     ImportOption,
     ListOption
 } from "./types";
+import { getAddressFromKey } from "./util";
 
 const VERSION = "0.3.0";
 
@@ -134,8 +135,11 @@ async function createCommand(args: any[], option: CreateOption) {
 async function deleteCommand(args: any[], option: DeleteOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
-    const address = parseAddress(accountType, option.address);
     const networkId = option.parent.networkId;
+    if (_.isUndefined(option.address) && process.stdout.isTTY) {
+        option.address = await selectAddress(cckey, networkId, accountType);
+    }
+    const address = parseAddress(accountType, option.address);
     await deleteKey(
         {
             cckey,
@@ -182,9 +186,12 @@ async function importRawCommand([privateKey]: any[], option: ImportOption) {
 async function exportCommand(args: any[], option: ExportOption) {
     const cckey = await CCKey.create({ dbPath: option.parent.keysPath });
     const accountType = parseAccountType(option.parent.accountType);
+    const networkId = option.parent.networkId;
+    if (_.isUndefined(option.address) && process.stdout.isTTY) {
+        option.address = await selectAddress(cckey, networkId, accountType);
+    }
     const address = parseAddress(accountType, option.address);
     const passphrase = await parsePassphrase(option.passphrase);
-    const networkId = option.parent.networkId;
     const secret = await exportKey(
         {
             cckey,
@@ -273,4 +280,25 @@ async function parsePassphrase(passphrase: string): Promise<string> {
         return "";
     }
     return answers.passphrase;
+}
+
+async function selectAddress(
+    cckey: CCKey,
+    networkId: string,
+    accountType: AccountType
+): Promise<string> {
+    const Enquirer = require("enquirer");
+    const enquirer = new Enquirer();
+    enquirer.register("list", require("prompt-list"));
+
+    let keys = await cckey[accountType].getKeys();
+    keys = _.map(keys, key => getAddressFromKey(accountType, key, networkId));
+    const questions = {
+        type: "list",
+        name: "address",
+        message: "Select your address please",
+        choices: keys
+    };
+    const answers = await enquirer.ask(questions);
+    return answers.address;
 }
