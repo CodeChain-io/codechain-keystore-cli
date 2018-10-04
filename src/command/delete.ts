@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-
 import { CLIError, CLIErrorType } from "../error";
 import { Context } from "../types";
 import { findMatchingKey } from "../util";

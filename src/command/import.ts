@@ -1,5 +1,4 @@
 import { SecretStorage } from "codechain-keystore";
-import * as _ from "lodash";
 
 import { Context } from "../types";
 import { getAddressFromKey } from "../util";
