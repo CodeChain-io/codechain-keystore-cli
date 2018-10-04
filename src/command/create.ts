@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-
 import { Context } from "../types";
 import { getAddressFromKey } from "../util";
 

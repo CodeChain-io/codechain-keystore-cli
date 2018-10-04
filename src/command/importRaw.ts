@@ -1,5 +1,4 @@
 import { PrivateKey } from "codechain-keystore/lib/types";
-import * as _ from "lodash";
 
 import { Context } from "../types";
 import { getAddressFromKey } from "../util";

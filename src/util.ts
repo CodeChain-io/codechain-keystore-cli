@@ -1,6 +1,6 @@
 import { Key } from "codechain-keystore/lib/types";
 import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
-import _ = require("lodash");
+import * as _ from "lodash";
 
 import { CLIError, CLIErrorType } from "./error";
 import { AccountType } from "./types";
