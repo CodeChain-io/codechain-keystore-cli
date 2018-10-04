@@ -522,19 +522,19 @@ co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
 
-codechain-keystore@~0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/codechain-keystore/-/codechain-keystore-0.3.0.tgz#2a8c0862fa5011eb3467dae6ce14d41d12ede2de"
+codechain-keystore@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/codechain-keystore/-/codechain-keystore-0.4.0.tgz#a8a35b1555b07c49d6456e7e2430c721e13d3a0f"
   dependencies:
-    codechain-primitives "^0.2.0"
+    codechain-primitives "^0.3.0"
     config "^2.0.1"
     lodash "^4.17.10"
     lowdb "^1.0.0"
     uuid "^3.3.2"
 
-codechain-primitives@^0.2.0, codechain-primitives@~0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/codechain-primitives/-/codechain-primitives-0.2.0.tgz#1e86b8adb1466606d478f95f25aa4eb5d6dc0e75"
+codechain-primitives@^0.3.0, codechain-primitives@~0.3.0:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/codechain-primitives/-/codechain-primitives-0.3.1.tgz#b3a86fdbdf6e95aa5b0313091eff8b65080da9c2"
   dependencies:
     bignumber.js "^7.2.1"
     blakejs "^1.1.0"
