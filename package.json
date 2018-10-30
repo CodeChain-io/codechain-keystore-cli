@@ -34,7 +34,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "codechain-keystore": "~0.4.0",
+    "codechain-keystore": "^0.5.4",
     "codechain-primitives": "~0.3.0",
     "commander": "^2.17.1",
     "enquirer": "^1.0.3",
