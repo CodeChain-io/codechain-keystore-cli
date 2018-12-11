@@ -24,7 +24,7 @@ import {
 } from "./types";
 import { getAddressFromKey } from "./util";
 
-const VERSION = "0.7.0-alpha.1";
+const VERSION = "0.7.0";
 
 const DEFAULT_KEYS_PATH = "keystore.db";
 
