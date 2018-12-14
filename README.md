@@ -11,13 +11,13 @@ You can download the latest binaries from [here](https://github.com/CodeChain-io
 ### Install using the npm package manager
 
 ```sh
-npm install -g codechain-sdk-cli
+npm install -g codechain-keystore-cli
 ```
 
 ### Install using the yarn package manager
 
 ```sh
-yarn global add codechain-sdk-cli
+yarn global add codechain-keystore-cli
 ```
 
 ## How to use
