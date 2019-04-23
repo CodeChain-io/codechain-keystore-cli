@@ -7,7 +7,7 @@
     "cckey": "build/index.js"
   },
   "repository": "git@github.com:CodeChain-io/codechain-keystore-cli.git",
-  "author": "CodeChain Team <codechain@kodebox.io>",
+  "author": "CodeChain Team <hi@codechain.io>",
   "bugs": {
     "url": "https://github.com/codechain-io/codechain-keystore-cli/issues"
   },
