@@ -42,8 +42,8 @@ program
     )
     .option(
         "--network-id <networkId>",
-        "the id of the network (use 'tc' for husky, use 'sc' for saluki)",
-        "tc"
+        "the id of the network (use 'cc' for mainnet, use 'wc' for corgi)",
+        "cc"
     );
 
 program
@@ -214,11 +214,11 @@ program.on("--help", () => {
 
     cckey list -t asset
 
-    cckey delete -t platform --address "tcc..."
+    cckey delete -t platform --address "ccc..."
 
     cckey import UTC--2018-08-14T06-30-23Z--bbb6685e-7165-819d-0988-fc1a7d2d0523 -t platform --passphrase "satoshi"
 
-    cckey export -t platform --address tccqz76va4lh6dwkuwetmfrcgpn852emyq9hvjuksfg --passphrase "satoshi"
+    cckey export -t platform --address cccq8ah0efv5ckpx6wy5mwva2aklzwsdw027sqfksrr --passphrase "satoshi"
 
     cckey import-raw -t platform a05f81608217738d99da8fd227897b87e8890d3c9159b559c7c8bbd408e5fb6e --passphrase "satoshi"
 `);
