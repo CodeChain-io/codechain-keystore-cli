@@ -3,6 +3,7 @@
 import { CCKey } from "codechain-keystore";
 import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
 import * as program from "commander";
+import { prompt } from "enquirer";
 import * as fs from "fs";
 import * as _ from "lodash";
 import * as process from "process";
@@ -267,19 +268,17 @@ async function parsePassphrase(passphrase: string): Promise<string> {
         return passphrase;
     }
 
-    const Enquirer = require("enquirer");
-    const enquirer = new Enquirer();
-    enquirer.register("password", require("prompt-password"));
-    const questions = {
+    const question = {
         type: "password",
         message: "Enter your passphrase please",
         name: "passphrase"
     };
-    const answers = await enquirer.ask(questions);
-    if (_.isUndefined(answers.passphrase)) {
+
+    const answer: any = await prompt(question);
+    if (_.isUndefined(answer.passphrase)) {
         return "";
     }
-    return answers.passphrase;
+    return answer.passphrase;
 }
 
 async function selectAddress(
@@ -287,18 +286,14 @@ async function selectAddress(
     networkId: string,
     accountType: AccountType
 ): Promise<string> {
-    const Enquirer = require("enquirer");
-    const enquirer = new Enquirer();
-    enquirer.register("list", require("prompt-list"));
-
     let keys = await cckey[accountType].getKeys();
     keys = _.map(keys, key => getAddressFromKey(accountType, key, networkId));
-    const questions = {
-        type: "list",
+    const question = {
+        type: "select",
         name: "address",
         message: "Select your address please",
         choices: keys
     };
-    const answers = await enquirer.ask(questions);
-    return answers.address;
+    const answer: any = await prompt(question);
+    return answer.address;
 }
