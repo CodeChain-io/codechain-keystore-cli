@@ -1,5 +1,5 @@
 import { Key } from "codechain-keystore/lib/types";
-import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
+import { AssetAddress, PlatformAddress } from "codechain-primitives";
 import * as _ from "lodash";
 
 import { CLIError, CLIErrorType } from "./error";
@@ -16,7 +16,7 @@ export function getAddressFromKey(
         });
         return platformAddress.toString();
     } else if (accountType === "asset") {
-        const assetAddress = AssetTransferAddress.fromTypeAndPayload(1, key, {
+        const assetAddress = AssetAddress.fromTypeAndPayload(1, key, {
             networkId
         });
         return assetAddress.toString();

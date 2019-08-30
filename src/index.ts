@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { CCKey } from "codechain-keystore";
-import { AssetTransferAddress, PlatformAddress } from "codechain-primitives";
+import { AssetAddress, PlatformAddress } from "codechain-primitives";
 import * as program from "commander";
 import { prompt } from "enquirer";
 import * as fs from "fs";
@@ -253,7 +253,7 @@ function parseAddress(accountType: AccountType, address: string): string {
         if (accountType === "platform") {
             PlatformAddress.fromString(address);
         } else {
-            AssetTransferAddress.fromString(address);
+            AssetAddress.fromString(address);
         }
     } catch (err) {
         throw new CLIError(CLIErrorType.InvalidAddress, {
