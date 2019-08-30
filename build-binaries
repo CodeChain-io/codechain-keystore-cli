@@ -9,16 +9,13 @@ try {
     // ignore
 }
 
-execSync("mkdir -p binaries");
-execSync("yarn pkg -t node10-linux-x86,node10-linux-x64,node10-macos-x64,node10-windows-x86,node10-windows-x64 --out-path binaries/ package.json");
-
+execSync("yarn pkg -t node12-linux-x64,node12-macos-x64,node12-win-x64 --out-path binaries/ package.json");
+console.log("Build done");
 
 const files = [
-    "codechain-keystore-cli-linux-x64",
-    "codechain-keystore-cli-linux-x86",
-    "codechain-keystore-cli-macos-x64",
-    "codechain-keystore-cli-win-x64.exe",
-    "codechain-keystore-cli-win-x86.exe"
+    "codechain-keystore-cli-linux",
+    "codechain-keystore-cli-macos",
+    "codechain-keystore-cli-win.exe"
 ];
 
 process.chdir("binaries");
